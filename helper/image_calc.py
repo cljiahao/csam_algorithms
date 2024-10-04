@@ -25,7 +25,7 @@ def denoise_mask_image(mask_image: np.ndarray) -> List[Dict[str, Any]]:
                 {
                     "contour": cnt,
                     "area": chip_area,
-                    "length": min(width, height),
+                    "length": max(width, height),
                     "rect": rect,
                 }
             )

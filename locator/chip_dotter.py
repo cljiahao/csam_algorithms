@@ -46,7 +46,7 @@ def chip_dotter(
                 cv2.circle(
                     image,
                     (int(xc - padx), int(yc - pady)),
-                    15,
+                    10,
                     core_consts.COLOR_WHITE,
                     -1,
                 )
