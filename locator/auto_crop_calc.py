@@ -8,6 +8,8 @@ import core.constants as core_consts
 from core.directory import directory
 from helper.base import initialize_cleaner
 from helper.debug import cvWin
+from helper.image_calc import get_median_area
+from helper.image_utils import check_single
 
 
 def auto_crop_calc(
@@ -29,17 +31,33 @@ def auto_crop_calc(
     average_length = np.median([obj["length"] for obj in clean_contours])
     nearest_pad = math.ceil(average_length * 2)
 
+    avg_chip_area = get_median_area(clean_contours)
+    thres_range = {k: v * avg_chip_area for k, v in core_consts.THRESH_RANGE.items()}
+
+
     no_of_chips = 0
     for clean_cnt in clean_contours:
-        rotated_crop_images = rotate_chips(border_image, clean_cnt["rect"], nearest_pad)
+        split_contours = check_single(
+            border_image, clean_cnt, thres_range["upp_def_area"]
+        )
 
-        if debug:
-            cvWin(rotated_crop_images)
+        for contour in split_contours:
+            if (
+                thres_range["low_chip_area"]
+                < contour["area"]
+                < thres_range["upp_chip_area"]
+            ):
 
-        if save_path:
-            save_image(save_path, no_of_chips, clean_cnt["rect"], rotated_crop_images)
-            no_of_chips += 1
+                rotated_crop_images = rotate_chips(border_image, clean_cnt["rect"], nearest_pad)
 
+                if debug:
+                    cvWin(rotated_crop_images)
+
+                if save_path:
+                    save_image(save_path, no_of_chips, clean_cnt["rect"], rotated_crop_images)
+                    no_of_chips += 1
+
+    print(no_of_chips)
 
 def rotate_chips(
     border_image: np.ndarray,
