@@ -31,7 +31,7 @@ def auto_chips_finder(
                 print(best_params)
                 if debug:
                     chip_dotter(
-                        path, erode=(erode, erode), close=(close, close), debug=debug
+                        path, erode=[erode, erode], close=[close, close], debug=debug
                     )
                 if item:
                     settings = get_settings_json(item)

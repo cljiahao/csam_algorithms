@@ -29,7 +29,7 @@ def auto_batch_finder(
                 best_params = {"erode": [erode, erode], "close": [close, close]}
                 print(best_params)
                 if debug:
-                    mask_img = erode_close(binary_image, (erode, erode), (close, close))
+                    mask_img = erode_close(binary_image, [erode, erode], [close, close])
                     confirmed_batch = cv2.bitwise_and(
                         border_image, border_image, mask=mask_img
                     )
