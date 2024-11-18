@@ -22,24 +22,17 @@ g_dir = ""
 
 # csam_img_file_path = "locator/NG2.png"
 # batch_file_path = "locator/NG2_295.png"
-# batch_file_path = "locator/test_batch_273_cv.png"
-# batch_file_path = "locator/NG_378.png"
-# batch_file_path = "locator/ng_image_395.png"
-# batch_file_path = "locator/6000(NG)_394.png"
 
-crop_file_path = "locator/test_batch_273_cv.png"
+crop_file_path = "locator/NG2_295.png"
 
-# dot_file_path = "locator/test_batch_273_cv.png"
-# dot_file_path = "locator/6000(NG)_394.png"
-# dot_file_path = "locator/6000(NG)_8_batches.png"
-# dot_file_path = "locator/6000(NG).png"
+# dot_file_path = "locator/NG2_295.png"
 
 # ng_dir = "augment/NG"
 # g_dir = "augment/G"
 
 # save_path = directory.images_dir
 
-item = "FMCNG"
+item = "test"
 no_of_batch = None
 no_of_chips = None
 erode = None
