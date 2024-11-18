@@ -33,7 +33,7 @@ def chip_dotter(
 
     for clean_cnt in clean_contours:
         split_contours = check_single(
-            border_image, clean_cnt, thres_range["upp_def_area"]
+            border_image, clean_cnt, thres_range["upp_chip_area"]
         )
 
         for contour in split_contours:

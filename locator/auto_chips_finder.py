@@ -60,7 +60,7 @@ def evaluation(
     if large_chip_area:
         current_count -= len(large_chip_area)
         for c in large_chip_area:
-            split_contours = check_single(binary_image, c, thres_range["upp_def_area"])
+            split_contours = check_single(binary_image, c, thres_range["upp_chip_area"])
             current_count += len(split_contours)
 
     return abs(no_of_chips - current_count)
