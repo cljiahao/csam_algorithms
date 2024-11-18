@@ -8,7 +8,7 @@ DENOISE_THRESHOLD: int = 10
 BG_THRESHOLD: int = 130
 THRESH_RANGE: dict[str, float] = {
     "low_chip_area": 0.15,
-    "upp_chip_area": 3,
+    "upp_chip_area": 2,
     "low_def_area": 0.75,
     "upp_def_area": 1.5,
 }
