@@ -16,6 +16,7 @@ def auto_crop_calc(
     path: str,
     erode: list[int],
     close: list[int],
+    padding: int,
     save_path: str = "",
     debug: bool = False,
 ) -> None:
@@ -29,11 +30,10 @@ def auto_crop_calc(
     border_image, clean_contours = initialize_cleaner(image, erode=erode, close=close)
 
     average_length = np.median([obj["length"] for obj in clean_contours])
-    nearest_pad = math.ceil(average_length * 2)
+    nearest_pad = padding if padding else math.ceil(average_length * 2)
 
     avg_chip_area = get_median_area(clean_contours)
     thres_range = {k: v * avg_chip_area for k, v in core_consts.THRESH_RANGE.items()}
-
 
     no_of_chips = 0
     for clean_cnt in clean_contours:
@@ -48,16 +48,21 @@ def auto_crop_calc(
                 < thres_range["upp_chip_area"]
             ):
 
-                rotated_crop_images = rotate_chips(border_image, clean_cnt["rect"], nearest_pad)
+                rotated_crop_images = rotate_chips(
+                    border_image, clean_cnt["rect"], nearest_pad
+                )
 
                 if debug:
                     cvWin(rotated_crop_images)
 
                 if save_path:
-                    save_image(save_path, no_of_chips, clean_cnt["rect"], rotated_crop_images)
+                    save_image(
+                        save_path, no_of_chips, clean_cnt["rect"], rotated_crop_images
+                    )
                     no_of_chips += 1
 
     print(no_of_chips)
+
 
 def rotate_chips(
     border_image: np.ndarray,

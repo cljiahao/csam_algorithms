@@ -41,9 +41,10 @@ crop_file_path = "locator/test_batch_273_cv.png"
 
 item = "FMCNG"
 no_of_batch = None
-no_of_chips = 295
+no_of_chips = None
 erode = None
 close = None
+padding = None
 color = False
 sorting = False
 debug = True
@@ -88,13 +89,13 @@ csam_colors = [
 
 if __name__ == "__main__":
 
-    erode, close = retrieve_erode_close(item, erode, close)
-
     auto_batch_finder(csam_img_file_path, no_of_batch, item, debug)
 
     auto_chips_finder(batch_file_path, no_of_chips, item, debug)
 
-    auto_crop_calc(crop_file_path, erode, close, save_path, debug)
+    erode, close = retrieve_erode_close(item, erode, close)
+
+    auto_crop_calc(crop_file_path, erode, close, padding, save_path, debug)
 
     chip_dotter(dot_file_path, erode, close, save_path, debug)
 
