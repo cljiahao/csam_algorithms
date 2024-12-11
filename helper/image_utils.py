@@ -47,27 +47,28 @@ def check_single(
         ]
 
         # Erode the image to detect smaller chips
-        for i in range(2, 15):
-            crop[:] = cv2.erode(crop, np.ones((i, i), np.uint8))
-            new_cnts, _ = cv2.findContours(
-                blank, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
-            )
-            if len(new_cnts) == 0:
-                break
-            elif len(new_cnts) > 1:
-                contour_arr = []
-                for cnt in new_cnts:
-                    area = cv2.contourArea(cnt)
-                    rect = cv2.minAreaRect(cnt)
-                    width, height = rect[1]
-                    contour_arr.append(
-                        {
-                            "contour": cnt,
-                            "area": area,
-                            "length": min(width, height),
-                            "rect": rect,
-                        }
-                    )
-                return contour_arr
+        for i in range(1, 15):
+            for j in range(1, 15):
+                crop[:] = cv2.erode(crop, np.ones((i, j), np.uint8))
+                new_cnts, _ = cv2.findContours(
+                    blank, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+                )
+                if len(new_cnts) == 0:
+                    break
+                elif len(new_cnts) > 1:
+                    contour_arr = []
+                    for cnt in new_cnts:
+                        area = cv2.contourArea(cnt)
+                        rect = cv2.minAreaRect(cnt)
+                        width, height = rect[1]
+                        contour_arr.append(
+                            {
+                                "contour": cnt,
+                                "area": area,
+                                "length": min(width, height),
+                                "rect": rect,
+                            }
+                        )
+                    return contour_arr
 
     return [contour]
