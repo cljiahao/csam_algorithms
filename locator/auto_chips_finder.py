@@ -47,7 +47,7 @@ def evaluation(
 ) -> int:
     """Evaluates the difference between detected chips and the target chip count."""
 
-    mask_img = erode_close(binary_image, (erode, erode), (close, close))
+    mask_img = erode_close(binary_image, [erode, erode], [close, close])
     contours = denoise_mask_image(mask_img)
 
     avg_chip_area = get_median_area(contours)
